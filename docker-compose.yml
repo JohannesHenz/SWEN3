@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  app:
+    image: 'dmsapi:latest'
+    build:
+      context: ./api
+    container_name: dmsapi
+    ports:
+      - 8081:8081
