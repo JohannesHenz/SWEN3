@@ -8,3 +8,10 @@ services:
     container_name: dmsapi
     ports:
       - 8081:8081
+  client:
+    image: dmsapp
+    build:
+      context: ./dmsapp
+    container_name: dmsapp
+    ports:
+      - "80:80"
