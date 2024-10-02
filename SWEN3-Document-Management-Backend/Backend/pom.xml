@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>Group_C</groupId>
-	<artifactId>SWEN3-Document-Management-Backend</artifactId>
+	<artifactId>SWEN3-Document-Management</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>SWEN3-Document-Management-Backend</name>
 	<description>Demo project for Spring Boot</description>
