@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/SWEN3.iml" filepath="$PROJECT_DIR$/.idea/SWEN3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SWEN3-Document-Management-Backend/Backend/SWEN3-Document-Management.iml" filepath="$PROJECT_DIR$/SWEN3-Document-Management-Backend/Backend/SWEN3-Document-Management.iml" />
     </modules>
   </component>
 </project>

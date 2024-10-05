@@ -9,8 +9,10 @@ services:
 
   frontend:
     build: ./frontend
+    volumes:
+      - ./frontend/src:/app/src   # Mount local frontend src to container for real-time updates
     ports:
-      - "3000:3000"                  # Frontend listens on port 3000
+      - "3000:80"                  # Frontend listens on port 3000
     networks:
       - app-network
 
