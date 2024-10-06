@@ -1,4 +1,4 @@
-package com.dms.api.response;
+package com.dms.api.dto.response;
 
 import lombok.Data;
 

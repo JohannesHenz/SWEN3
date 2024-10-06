@@ -13,6 +13,7 @@ public class ApiSecurityConfig   {
   @Bean
   public SecurityFilterChain customFilterChain1(HttpSecurity http) throws Exception {
    
+    http.csrf().disable();
     http
 			.authorizeHttpRequests(req -> 
        req.requestMatchers("/**").permitAll().anyRequest().authenticated());

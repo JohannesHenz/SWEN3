@@ -1,17 +1,31 @@
 version: '3.8'
 
 services:
-  app:
+  dmsapi:
     image: 'dmsapi:latest'
     build:
       context: ./api
     container_name: dmsapi
     ports:
       - 8081:8081
-  client:
+    depends_on:
+      - dmsdatabase
+  dmsapp:
     image: dmsapp
     build:
       context: ./dmsapp
     container_name: dmsapp
     ports:
       - "80:80"
+  dmsdatabase:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=dms
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - postgresql_vol:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgresql_vol:

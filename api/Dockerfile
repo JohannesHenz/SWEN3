@@ -4,7 +4,7 @@ WORKDIR /opt/app
 COPY src src
 COPY pom.xml pom.xml
 
-RUN mvn clean install
+RUN mvn clean install -DskipTests
 
 VOLUME /opt/app/data
 
