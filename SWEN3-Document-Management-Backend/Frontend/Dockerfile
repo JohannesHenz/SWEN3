@@ -1,10 +1,13 @@
-# Frontend Dockerfile
-FROM node:16-alpine
+# Build stage
+FROM node:lts-alpine as build-stage
 WORKDIR /app
-COPY package.json ./
-COPY yarn.lock ./
-RUN yarn install
-COPY . ./
-RUN yarn build
-EXPOSE 3000
-CMD ["yarn", "start"]
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+# Production stage
+FROM nginx:stable-alpine as production-stage
+COPY --from=build-stage /app/build /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

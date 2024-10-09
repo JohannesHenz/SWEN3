@@ -12,12 +12,13 @@ services:
 
   frontend:
     build: ./frontend
-    volumes:
-      - ./Frontend/build:/usr/share/nginx/html  # Mount the frontend build folder for serving by Nginx
-    depends_on:
-      - backend
+    ports:
+      - "3000:80"  # Nginx serving on port 80, exposed to port 3000
     networks:
       - app-network
+    volumes:
+      - ./Frontend:/app
+
 
   nginx:
     image: nginx:alpine
