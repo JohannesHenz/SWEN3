@@ -1,0 +1,39 @@
+# Exclude IDE-specific files
+.idea/
+*.iml
+
+# Ignore node_modules and build artifacts for frontend
+Frontend/node_modules/
+Frontend/build/
+
+
+# Ignore Maven build artifacts
+Backend/target/
+
+# Ignore Maven wrapper files (optional if you don't need them in the repo)
+Backend/.mvn/
+Backend/mvnw
+Backend/mvnw.cmd
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignore temporary files
+*.tmp
+*.swp
+*.swo
+*.DS_Store
+
+# Exclude Docker-related files
+docker-compose.override.yml
+
+# Ignore OS-specific files
+Thumbs.db
+.DS_Store
+
+# Ignore any additional environment files
+.env
