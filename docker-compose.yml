@@ -21,7 +21,7 @@ services:
     image: postgres:15
     environment:
       - POSTGRES_DB=dms
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PASSWORD=1234
     volumes:
       - postgresql_vol:/var/lib/postgresql/data
     ports:
