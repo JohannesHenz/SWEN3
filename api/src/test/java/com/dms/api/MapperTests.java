@@ -15,12 +15,12 @@ public class MapperTests {
   @Test
   void DtoToEntityMapperTest() {
     FileDto fileDto = new FileDto();
-    fileDto.setFileName("Document.pdf");
-    fileDto.setFileSize(1000L);
+    fileDto.setTextContent("Document.pdf");
+    fileDto.setId(1000L);
 
     FileEntity fileEntity = modelMapper.map(fileDto, FileEntity.class);
-    assertEquals(fileDto.getFileName(), fileEntity.getFileName());
-    assertEquals(fileDto.getFileSize(), fileEntity.getFileSize());
+    assertEquals(fileDto.getId(), fileEntity.getId());
+    assertEquals(fileDto.getTextContent(), fileEntity.getTextContent());
   }
 
 }

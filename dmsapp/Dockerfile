@@ -1,12 +1,20 @@
 FROM node:18-alpine3.19 AS build
 WORKDIR /app
 COPY package.json .
-RUN npm i
-COPY . .
+
+RUN apk add --update python3 make g++\
+   && rm -rf /var/cache/apk/*
+
+RUN npm install
+COPY src src
+COPY tailwind.config.js .
+COPY nginx.conf .
+COPY public public
+
 RUN npm run build
 
 FROM nginx
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=build /app/build /usr/share/nginx/html
 COPY --from=build /app/nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80

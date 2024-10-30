@@ -1,5 +1,6 @@
 package com.dms.api.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -22,5 +23,11 @@ public class FileEntity {
 
   @NotNull(message = "fileSize is required")
   private Long fileSize;
+
+  @Column(columnDefinition = "text", length=10485760)
+  private String textContent;
+
+  private Integer status;
+
 
 }

@@ -1,16 +1,16 @@
 package com.dms.api.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 public class FileDto {
   
-  @NotBlank(message = "fileName is required")
-  private String fileName;
+  private Long id;
 
-  @NotNull(message = "fileSize is required")
-  private Long fileSize;
+  @NotNull(message = "filePath is required")
+  private String filePath;
+
+  private String textContent;
 
 }

@@ -12,7 +12,7 @@ public class CorsConfig {
   
   private CorsConfiguration buildConfig() {
     CorsConfiguration corsConfiguration = new CorsConfiguration();
-    corsConfiguration.addAllowedOriginPattern("http://localhost*");
+    corsConfiguration.addAllowedOriginPattern("*");
     corsConfiguration.addAllowedHeader("*");
     corsConfiguration.addAllowedMethod("*");
     return corsConfiguration;

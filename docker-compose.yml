@@ -5,11 +5,22 @@ services:
     image: 'dmsapi:latest'
     build:
       context: ./api
+      dockerfile: Dockerfile.api
     container_name: dmsapi
     ports:
       - 8081:8081
     depends_on:
       - dmsdatabase
+
+  dmsocr:
+    image: 'dmsocr:latest'
+    build:
+      context: ./ocr
+      dockerfile: Dockerfile.ocr
+    container_name: dmsocr
+    ports:
+      - 8082:8082
+
   dmsapp:
     image: dmsapp
     build:
@@ -17,15 +28,30 @@ services:
     container_name: dmsapp
     ports:
       - "80:80"
+
   dmsdatabase:
     image: postgres:15
     environment:
       - POSTGRES_DB=dms
-      - POSTGRES_PASSWORD=1234
+      - POSTGRES_PASSWORD=postgres
     volumes:
       - postgresql_vol:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    environment:
+      - RABBITMQ_USER=dms
+      - RABBITMQ_PASSWORD=1234
+    ports:
+        - 5672:5672
+        - 9093:15672
+    volumes:
+      - rabbitmq1_data:/var/lib/rabbitmq
+      - rabbitmq1_log:/var/log/rabbitmq
 
 volumes:
   postgresql_vol:
+  rabbitmq1_data:
+  rabbitmq1_log:

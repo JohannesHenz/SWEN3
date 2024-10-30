@@ -1,0 +1,68 @@
+FROM maven:3.9.9-amazoncorretto-21 as builder
+
+RUN yum update -y &&\
+  yum -y -q install wget &&\
+  yum install -y gcc gcc-c++ autoconfig automake make pkgconfig libtool gzip tar&&\
+  yum install -y zlib-devel libtiff-devel libwebp-devel libpng-devel  openjpeg2-devel lib-jpeg-turbo-devel giflib-devel &&\
+  yum clean all
+
+RUN wget -q https://github.com/DanBloomberg/leptonica/archive/refs/tags/1.82.0.tar.gz \
+  && tar -zxvf 1.82.0.tar.gz -C /opt \
+  && rm -f 1.82.0.tar.gz
+
+WORKDIR /opt/leptonica-1.82.0
+RUN ./autogen.sh
+RUN ./configure
+RUN make && make install
+
+
+RUN export PKG_CONFIG_PATH='/usr/local/lib/pkgconfig'
+RUN export PKG_CONFIG='/usr/bin/pkg-config'
+
+ENV PKG_CONFIG_PATH='/usr/local/lib/pkgconfig'
+ENV PKG_CONFIG='/usr/bin/pkg-config'
+
+RUN wget -q https://github.com/tesseract-ocr/tesseract/archive/5.2.0.tar.gz \
+    && tar -zxvf 5.2.0.tar.gz -C /opt \
+    && rm -f 5.2.0.tar.gz
+
+WORKDIR /opt/tesseract-5.2.0
+RUN ./autogen.sh
+RUN ./configure
+RUN make && make install
+
+RUN wget https://github.com/tesseract-ocr/tessdata/raw/main/eng.traineddata -P /opt/
+
+RUN wget https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10040/ghostscript-10.04.0.tar.gz \
+  && tar -zxvf ghostscript-10.04.0.tar.gz -C /opt \
+  && rm -f ghostscript-10.04.0.tar.gz
+
+WORKDIR /opt/ghostscript-10.04.0
+RUN ./configure
+RUN make && make install && make so
+RUN cp sobin/libgs.so.10.04 /usr/local/lib
+RUN ln -s /usr/local/lib/libgs.so.10.04 /usr/local/lib/libgs.so
+RUN echo /usr/local/lib >> /etc/ld.so.conf
+RUN ldconfig
+
+RUN tesseract -v
+RUN gs -v
+
+
+ENV LD_BIND_NOW=1
+ENV LD_LIBRARY_PATH=/usr/local/lib:/usr/local:/opt:/lib:/usr/local/bin:/lib64
+
+WORKDIR /opt/app
+
+COPY pom.xml .
+COPY . .
+
+RUN mvn clean install -DskipTests
+
+VOLUME /opt/app/data
+
+EXPOSE 8082
+
+ENTRYPOINT ["java", "-jar", "target/ocr-0.0.1-SNAPSHOT.jar"]
+
+# https://thepurushoths.medium.com/spring-boot-tesseract-ocr-in-kotlin-with-multi-stage-docker-515cdd13af37
