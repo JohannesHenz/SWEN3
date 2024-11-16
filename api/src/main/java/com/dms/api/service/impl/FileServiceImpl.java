@@ -36,7 +36,7 @@ public class FileServiceImpl implements FileService {
   @Autowired 
   private RabbitMQProducer rabbitMQProducer;
   
-  private String BASE_PATH = System.getProperty("user.home") + "/dms/documents";
+  private String BASE_PATH = "/tmp/dms/documents";
 
   @PostConstruct
   void init() {

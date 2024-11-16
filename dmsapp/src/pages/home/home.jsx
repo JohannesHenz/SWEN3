@@ -88,7 +88,7 @@ const Home = () => {
 						<tbody>
 							{
 								dmsList.map((it) => {
-									return <tr key={it.id} className='mt-2'>
+									return <tr key={it.id} className='py-2'>
 										<td className='px-8'>{it.fileName}</td>
 										<td className='px-8'>{it.fileSize}</td>
 										<td className='px-8'>{it.status === 2 ? 'Processed' : 'Processing' }</td>

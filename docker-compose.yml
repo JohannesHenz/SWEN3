@@ -11,6 +11,8 @@ services:
       - 8081:8081
     depends_on:
       - dmsdatabase
+    volumes:
+      - file_vol:/tmp
 
   dmsocr:
     image: 'dmsocr:latest'
@@ -20,6 +22,9 @@ services:
     container_name: dmsocr
     ports:
       - 8082:8082
+    volumes:
+      - file_vol:/tmp
+    
 
   dmsapp:
     image: dmsapp
@@ -55,3 +60,4 @@ volumes:
   postgresql_vol:
   rabbitmq1_data:
   rabbitmq1_log:
+  file_vol:
